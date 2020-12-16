@@ -22,9 +22,11 @@ namespace RezaB.Mailing
 {
     public class InboxMailMessageInfo
     {
-        public string From { get; internal set; }
-        public string Subject { get; internal set; }
-        public IEnumerable<MailFileAttachment> Attachments { get; internal set; }
+        public string UUID { get; set; }
+        public string From { get; set; }
+        public string Subject { get; set; }
+ 
+        public IEnumerable<MailFileAttachment> Attachments { get; set; }
 
         public void Dispose()
         {

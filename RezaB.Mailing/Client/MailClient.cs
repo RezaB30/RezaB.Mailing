@@ -1,14 +1,17 @@
 ﻿using OpenPop.Pop3;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Net.Mime;
 using System.Text;
 
 namespace RezaB.Mailing.Client
 {
-    public class MailClient : IMailClient, IDisposable
+    public class MailClient : /*IMailClient,*/ IDisposable
     {
         private bool disposedValue;
 
@@ -29,79 +32,79 @@ namespace RezaB.Mailing.Client
 
         public IEnumerable<InboxMailMessageInfo> GetAllInboxMessages()
         {
-            var messageCount = 0;
             using (var mailClient = new Pop3Client())
             {
                 mailClient.Connect(HostName, HostPort, UseSSL);
                 mailClient.Authenticate(Username, Password);
-                messageCount = mailClient.GetMessageCount();
-                mailClient.Disconnect();
-            }
-            var messageList = new List<InboxMailMessageInfo>();
-            using (var mailClient = new Pop3Client())
-            {
-                mailClient.Connect(HostName, HostPort, UseSSL);
-                mailClient.Authenticate(Username, Password);
-
-                for (int i = 1; i <= messageCount; i++)
+                var allMessageInfos = mailClient.GetMessageInfos();
+                var allMessageHeaders = allMessageInfos.Select(mi => new
                 {
-                    var message = mailClient.GetMessage(i);
-
-                    using (var currentMailMessage = message.ToMailMessage())
-                    {
-                        string bodyContent = null;
-                        var attachmentNames = new List<string>();
-                        bodyContent = currentMailMessage.Body;
-                        foreach (var emailAttachment in currentMailMessage.Attachments)
-                        {
-                            attachmentNames.Add($"{emailAttachment.Name}({emailAttachment.ContentId}:{emailAttachment.ContentType.MediaType})");
-                        }
-
-                        messageList.Add(new InboxMailMessageInfo()
-                        {
-                            From = currentMailMessage.From.Address,
-                            Subject = currentMailMessage.Subject
-                        });
-                    }
-                }
+                    Headers = mailClient.GetMessageHeaders(mi.Number),
+                    Number = mi.Number,
+                    UUID = mi.Identifier
+                }).Select(message => new InboxMailMessageInfo()
+                {
+                    UUID = message.UUID,
+                    Subject = message.Headers.Subject,
+                    From = message.Headers.From.Address
+                }).ToArray();
                 mailClient.Disconnect();
+                return allMessageHeaders;
             }
-            return messageList;
+
+
+            //var messageList = new List<InboxMailMessageInfo>();
+            //using (var mailClient = new Pop3Client())
+            //{
+            //    mailClient.Connect(HostName, HostPort, UseSSL);
+            //    mailClient.Authenticate(Username, Password);
+
+            //    for (int i = 1; i <= messageCount; i++)
+            //    {
+
+            //        var message = mailClient.GetMessage(i);
+
+            //        using (var currentMailMessage = message.ToMailMessage())
+            //        {
+            //            string bodyContent = null;
+            //            var attachmentNames = new List<string>();
+            //            bodyContent = currentMailMessage.Body;
+            //            foreach (var emailAttachment in currentMailMessage.Attachments)
+            //            {
+            //                attachmentNames.Add($"{emailAttachment.Name}({emailAttachment.ContentId}:{emailAttachment.ContentType.MediaType})");
+            //            }
+
+            //            messageList.Add(new InboxMailMessageInfo()
+            //            {
+            //                UUID=currentMailMessage.,
+            //                From = currentMailMessage.From.Address,
+            //                Subject = currentMailMessage.Subject,
+            //                Attachments = currentMailMessage.Attachments.Cast<MailFileAttachment>().Select(attachmentItem => new MailFileAttachment()
+            //                {
+            //                    FileName = attachmentNames.ToString()
+            //                })
+            //            }); ;
+
+
+            //        }
+            //    }
+            //    mailClient.Disconnect();
+            //}
+            //return messageList;
         }
 
-        public InboxMailMessage GetInboxMessageById(string uuid)
+        public StandardMailMessage GetInboxMessageById(string uuid)
         {
             using (var mailClient = new Pop3Client())
             {
                 mailClient.Connect(HostName, HostPort, UseSSL);
                 mailClient.Authenticate(Username, Password);
-                var messageNo = mailClient.GetMessageInfos().FirstOrDefault(info => info.Identifier == uuid).Number;
-                using (var currentMailMessage = mailClient.GetMessage(messageNo).ToMailMessage())
-                {
-                    string bodyContent = null;
-                    var attachmentNames = new List<string>();
-                    bodyContent = currentMailMessage.Body;
-                    foreach (var emailAttachment in currentMailMessage.Attachments)
-                    {
-                        attachmentNames.Add($"{emailAttachment.Name}({emailAttachment.ContentId}:{emailAttachment.ContentType.MediaType})");
-                    }
 
-                    return new InboxMailMessage()
-                    {
-                        From = currentMailMessage.From.Address,
-                        To = $"({string.Join(",", currentMailMessage.To.Select(address => address.Address))})",
-                        Bcc = currentMailMessage.Bcc,
-                        Cc = currentMailMessage.CC,
-                        Subject = currentMailMessage.Subject,
-                        Body = currentMailMessage.Body,
-                        Attachments = currentMailMessage.Attachments.Select(att => new MailFileAttachment()
-                        {
-                            FileName = att.Name,
-                            ContentType = att.ContentType.MediaType,
-                            Content = att.ContentStream
-                        })
-                    };
-                }
+                var messageNo = mailClient.GetMessageInfos().FindIndex(info => info.Identifier == uuid);
+                var currentMailMessage = mailClient.GetMessage(messageNo + 1).ToMailMessage();
+
+                return new StandardMailMessage(currentMailMessage);
+                
             }
         }
 
@@ -115,10 +118,10 @@ namespace RezaB.Mailing.Client
                 messageCount = mailClient.GetMessageCount();
                 mailClient.Disconnect();
             }
-            return messageCount; 
+            return messageCount;
         }
 
-        public void SendMail(string to, string subject, string body, MailBodyType bodyType, IEnumerable<MailFileAttachment> attachments)
+        public void SendMail(StandardMailMessage sendingMessage)
         {
             using (var smtpClient = new SmtpClient()
             {
@@ -128,17 +131,30 @@ namespace RezaB.Mailing.Client
                 EnableSsl = UseSSL
             })
             {
-                using (var message = new MailMessage(Username, to, subject, body))
+                using (var message = new MailMessage())
                 {
-                    message.Subject = subject;
-                    message.IsBodyHtml = bodyType == MailBodyType.HTML ? true : false;
-                    message.Body = body;
-                    message.Attachments.Add(new Attachment(attachments.ToString()));
+                    message.From = new MailAddress(Username);
+                    message.Subject = sendingMessage.Subject;
+                    message.IsBodyHtml = sendingMessage.BodyType == MailBodyType.HTML ? true : false;
+                    message.Body = sendingMessage.Body;
+
+                    SetupMailAddressCollection(message.To, sendingMessage.To);
+                    SetupMailAddressCollection(message.CC, sendingMessage.Cc);
+                    SetupMailAddressCollection(message.Bcc, sendingMessage.Bcc);
+
+                    foreach (var attachmentItem in sendingMessage.Attachments)
+                    {
+                        if (attachmentItem.Content.CanSeek)
+                            attachmentItem.Content.Seek(0, SeekOrigin.Begin);
+                        message.Attachments.Add(new Attachment(attachmentItem.Content, attachmentItem.FileName));
+                    }
+
                     smtpClient.Send(message);
                 }
             }
         }
 
+        
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)
@@ -166,6 +182,17 @@ namespace RezaB.Mailing.Client
             // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
+        }
+
+        private void SetupMailAddressCollection(MailAddressCollection mailAddressCollection, ICollection<string> mailAddresses)
+        {
+            if (mailAddresses != null)
+            {
+                foreach (var mailAddress in mailAddresses)
+                {
+                    mailAddressCollection.Add(mailAddress);
+                }
+            }
         }
     }
 }

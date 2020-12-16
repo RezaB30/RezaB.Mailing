@@ -46,7 +46,7 @@
   <ItemGroup>
     <Compile Include="Client\MailClient.cs" />
     <Compile Include="IMailClient.cs" />
-    <Compile Include="InboxMailMessage.cs" />
+    <Compile Include="StandardMailMessage.cs" />
     <Compile Include="InboxMailMessageInfo.cs" />
     <Compile Include="MailBodyType.cs" />
     <Compile Include="MailFileAttachment.cs" />
