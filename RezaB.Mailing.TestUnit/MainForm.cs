@@ -51,6 +51,16 @@ namespace RezaB.Mailing.TestUnit
 
             filterContentType();
 
+            try
+            {
+                LoadSettings();
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Check the Settings");
+            }
+
         }
 
         private object GetMails()

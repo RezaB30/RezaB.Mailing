@@ -543,7 +543,6 @@
             this.Pop3_Hostport_Textbox.Name = "Pop3_Hostport_Textbox";
             this.Pop3_Hostport_Textbox.Size = new System.Drawing.Size(245, 20);
             this.Pop3_Hostport_Textbox.TabIndex = 12;
-            this.Pop3_Hostport_Textbox.Text = "110";
             // 
             // Pop3_Hostname_Textbox
             // 
@@ -551,7 +550,6 @@
             this.Pop3_Hostname_Textbox.Name = "Pop3_Hostname_Textbox";
             this.Pop3_Hostname_Textbox.Size = new System.Drawing.Size(245, 20);
             this.Pop3_Hostname_Textbox.TabIndex = 11;
-            this.Pop3_Hostname_Textbox.Text = "mail.netspeed.com.tr";
             // 
             // label9
             // 
@@ -577,7 +575,6 @@
             this.Pop3_Password_Textbox.Name = "Pop3_Password_Textbox";
             this.Pop3_Password_Textbox.Size = new System.Drawing.Size(245, 20);
             this.Pop3_Password_Textbox.TabIndex = 8;
-            this.Pop3_Password_Textbox.Text = "FQgb65L0";
             // 
             // label11
             // 
@@ -594,7 +591,6 @@
             this.Pop3_Username_Textbox.Name = "Pop3_Username_Textbox";
             this.Pop3_Username_Textbox.Size = new System.Drawing.Size(245, 20);
             this.Pop3_Username_Textbox.TabIndex = 6;
-            this.Pop3_Username_Textbox.Text = "elif.findik@netspeed.com.tr";
             // 
             // label8
             // 
@@ -628,7 +624,6 @@
             this.Smtp_Hostport_Textbox.Name = "Smtp_Hostport_Textbox";
             this.Smtp_Hostport_Textbox.Size = new System.Drawing.Size(245, 20);
             this.Smtp_Hostport_Textbox.TabIndex = 20;
-            this.Smtp_Hostport_Textbox.Text = "25";
             // 
             // Smtp_Hostname_Textbox
             // 
@@ -636,7 +631,6 @@
             this.Smtp_Hostname_Textbox.Name = "Smtp_Hostname_Textbox";
             this.Smtp_Hostname_Textbox.Size = new System.Drawing.Size(245, 20);
             this.Smtp_Hostname_Textbox.TabIndex = 19;
-            this.Smtp_Hostname_Textbox.Text = "mail.netspeed.com.tr";
             // 
             // label5
             // 
@@ -662,7 +656,6 @@
             this.Smtp_Password_Textbox.Name = "Smtp_Password_Textbox";
             this.Smtp_Password_Textbox.Size = new System.Drawing.Size(245, 20);
             this.Smtp_Password_Textbox.TabIndex = 16;
-            this.Smtp_Password_Textbox.Text = "FQgb65L0";
             // 
             // label7
             // 
@@ -679,7 +672,6 @@
             this.Smtp_Username_Textbox.Name = "Smtp_Username_Textbox";
             this.Smtp_Username_Textbox.Size = new System.Drawing.Size(245, 20);
             this.Smtp_Username_Textbox.TabIndex = 14;
-            this.Smtp_Username_Textbox.Text = "elif.findik@netspeed.com.tr";
             // 
             // label12
             // 
