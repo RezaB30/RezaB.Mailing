@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>1.0.0</version>
+    <title>RezaB.Mailing</title>
+    <authors>Reza Barzegaran</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <description>Sending and receiving mail messages.</description>
+    <releaseNotes>First release.</releaseNotes>
+    <copyright>$copyright$</copyright>
+    <tags>Mail Mailing Email E-mail</tags>
+	<repository type="git" url="https://github.com/masteriss/RezaB.Mailing" branch="master" />
+  </metadata>
+</package>

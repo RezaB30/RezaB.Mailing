@@ -21,19 +21,58 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace RezaB.Mailing
 {
+    /// <summary>
+    /// Represents a full mail message with attachments and headers.
+    /// </summary>
     public class StandardMailMessage : IDisposable
     {
+        /// <summary>
+        /// Message's unique identifier.
+        /// </summary>
         public string UUID { get; set; }
+        /// <summary>
+        /// Which mail address, this message is from.
+        /// </summary>
         public string From { get; private set; }
+        /// <summary>
+        /// To which address(es) this message is sent.
+        /// </summary>
         public ICollection<string> To { get; private set; }
+        /// <summary>
+        /// To which address(es) this message is sent as BCC.
+        /// </summary>
         public ICollection<string> Bcc { get; private set; }
+        /// <summary>
+        /// To which address(es) this message is sent as CC.
+        /// </summary>
         public ICollection<string> Cc { get; private set; }
-
+        /// <summary>
+        /// The subject of the message.
+        /// </summary>
         public string Subject { get; private set; }
+        /// <summary>
+        /// The body of the message.
+        /// </summary>
         public string Body { get; private set; }
+        /// <summary>
+        /// Whether it is a text or HTML message.
+        /// </summary>
         public MailBodyType? BodyType { get; private set; }
+        /// <summary>
+        /// The list of attachments of this mail.
+        /// </summary>
         public IEnumerable<MailFileAttachment> Attachments { get; private set; }
-
+        /// <summary>
+        /// Creates a mail message.
+        /// </summary>
+        /// <param name="from">Which mail address, this message is from.</param>
+        /// <param name="to">To which address(es) this message is sent.</param>
+        /// <param name="cc">To which address(es) this message is sent as CC.</param>
+        /// <param name="bcc">To which address(es) this message is sent as BCC.</param>
+        /// <param name="subject">The subject of the message.</param>
+        /// <param name="body">The body of the message.</param>
+        /// <param name="bodyType">Whether it is a text or HTML message.</param>
+        /// <param name="attachments">The list of attachments of this mail.</param>
         public StandardMailMessage(string from, ICollection<string> to, ICollection<string> cc, ICollection<string> bcc, string subject, string body, MailBodyType? bodyType, IEnumerable<MailFileAttachment> attachments)
         {
             From = from;
@@ -45,7 +84,10 @@ namespace RezaB.Mailing
             BodyType = bodyType;
             Attachments = attachments;
         }
-
+        /// <summary>
+        /// Creates a mail message based on an existing mail message.
+        /// </summary>
+        /// <param name="message">The base mail message.</param>
         public StandardMailMessage(MailMessage message)
         {
             From = message.From.Address;

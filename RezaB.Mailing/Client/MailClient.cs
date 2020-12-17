@@ -11,16 +11,40 @@ using System.Text;
 
 namespace RezaB.Mailing.Client
 {
-    public class MailClient : /*IMailClient,*/ IDisposable
+    /// <summary>
+    /// A mail client that supports <i>SMTP</i> & <i>POP3</i>.
+    /// </summary>
+    public class MailClient : IMailClient, IDisposable
     {
         private bool disposedValue;
-
+        /// <summary>
+        /// Mail host name.
+        /// </summary>
         public string HostName { get; private set; }
+        /// <summary>
+        /// Host port.
+        /// </summary>
         public int HostPort { get; private set; }
+        /// <summary>
+        /// Should use SSL. (currently not supported.)
+        /// </summary>
         public bool UseSSL { get; private set; }
+        /// <summary>
+        /// Mail username.
+        /// </summary>
         public string Username { get; private set; }
+        /// <summary>
+        /// Mail password.
+        /// </summary>
         public string Password { get; private set; }
-
+        /// <summary>
+        /// Creates a mail client for sending and receiving messages.
+        /// </summary>
+        /// <param name="hostName">Mail host name.</param>
+        /// <param name="hostPort">Host port.</param>
+        /// <param name="useSSL">Should use SSL. (currently not supported.)</param>
+        /// <param name="username">Mail username.</param>
+        /// <param name="password">Mail password.</param>
         public MailClient(string hostName, int hostPort, bool useSSL, string username, string password)
         {
             HostName = hostName;
@@ -51,46 +75,6 @@ namespace RezaB.Mailing.Client
                 mailClient.Disconnect();
                 return allMessageHeaders;
             }
-
-
-            //var messageList = new List<InboxMailMessageInfo>();
-            //using (var mailClient = new Pop3Client())
-            //{
-            //    mailClient.Connect(HostName, HostPort, UseSSL);
-            //    mailClient.Authenticate(Username, Password);
-
-            //    for (int i = 1; i <= messageCount; i++)
-            //    {
-
-            //        var message = mailClient.GetMessage(i);
-
-            //        using (var currentMailMessage = message.ToMailMessage())
-            //        {
-            //            string bodyContent = null;
-            //            var attachmentNames = new List<string>();
-            //            bodyContent = currentMailMessage.Body;
-            //            foreach (var emailAttachment in currentMailMessage.Attachments)
-            //            {
-            //                attachmentNames.Add($"{emailAttachment.Name}({emailAttachment.ContentId}:{emailAttachment.ContentType.MediaType})");
-            //            }
-
-            //            messageList.Add(new InboxMailMessageInfo()
-            //            {
-            //                UUID=currentMailMessage.,
-            //                From = currentMailMessage.From.Address,
-            //                Subject = currentMailMessage.Subject,
-            //                Attachments = currentMailMessage.Attachments.Cast<MailFileAttachment>().Select(attachmentItem => new MailFileAttachment()
-            //                {
-            //                    FileName = attachmentNames.ToString()
-            //                })
-            //            }); ;
-
-
-            //        }
-            //    }
-            //    mailClient.Disconnect();
-            //}
-            //return messageList;
         }
 
         public StandardMailMessage GetInboxMessageById(string uuid)

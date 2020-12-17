@@ -209,15 +209,6 @@ namespace RezaB.Mailing.TestUnit
             }
         }
 
-        //private void LinkLabelAttachment_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        //{
-        //    SmtpClient sc = new SmtpClient();
-        //    MainForm client = new MainForm();
-
-        //    MailClient mailClient = new MailClient("mail.netspeed.com.tr", 25, false, "elif.findik@netspeed.com.tr", "FQgb65L0");
-
-        //}
-
         private void DownloadAttachments_Button_Click(object sender, EventArgs e)
         {
             if (DownloadAttachment_ListBox.SelectedItems.Count != 0)

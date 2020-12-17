@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("RezaB.Mailing")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Sending and receiving mail messages.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Reza Barzegaran")]
 [assembly: AssemblyProduct("RezaB.Mailing")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
