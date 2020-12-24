@@ -33,7 +33,7 @@ namespace RezaB.Mailing
         /// <summary>
         /// Which mail address, this message is from.
         /// </summary>
-        public string From { get; private set; }
+        public MailAddress From { get; private set; }
         /// <summary>
         /// To which address(es) this message is sent.
         /// </summary>
@@ -73,7 +73,7 @@ namespace RezaB.Mailing
         /// <param name="body">The body of the message.</param>
         /// <param name="bodyType">Whether it is a text or HTML message.</param>
         /// <param name="attachments">The list of attachments of this mail.</param>
-        public StandardMailMessage(string from, ICollection<string> to, ICollection<string> cc, ICollection<string> bcc, string subject, string body, MailBodyType? bodyType, IEnumerable<MailFileAttachment> attachments)
+        public StandardMailMessage(MailAddress from, ICollection<string> to, ICollection<string> cc, ICollection<string> bcc, string subject, string body, MailBodyType? bodyType, IEnumerable<MailFileAttachment> attachments)
         {
             From = from;
             To = to;
@@ -90,7 +90,7 @@ namespace RezaB.Mailing
         /// <param name="message">The base mail message.</param>
         public StandardMailMessage(MailMessage message)
         {
-            From = message.From.Address;
+            From = message.From;
             To = message.To.Cast<MailAddress>().Select(ma => ma.Address).ToList();
             Cc = message.CC.Cast<MailAddress>().Select(ma => ma.Address).ToList();
             Bcc = message.Bcc.Cast<MailAddress>().Select(ma => ma.Address).ToList();

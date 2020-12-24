@@ -90,7 +90,7 @@ namespace RezaB.Mailing.TestUnit
             });
             var mailAttachment = string.IsNullOrWhiteSpace(mailAttachmentItem.ToString()) ? null : mailAttachmentItem;
 
-            var mailMessage = new StandardMailMessage(mailClient.Username, mailTo, mailCc, mailBc, subject_textbox.Text, content_textbox.Text, null, mailAttachment);
+            var mailMessage = new StandardMailMessage(new MailAddress(mailClient.Username, FromTextbox.Text), mailTo, mailCc, mailBc, subject_textbox.Text, content_textbox.Text, null, mailAttachment);
 
             mailClient.SendMail(mailMessage);
         }
@@ -183,7 +183,7 @@ namespace RezaB.Mailing.TestUnit
                 using (var selectedMailMessage = client.GetInboxMessageById(selectedUUID))
                 {
                     DownloadAttachment_ListBox.Items.Clear();
-                    Sender_TextBox.Text = selectedMailMessage.From;
+                    Sender_TextBox.Text = selectedMailMessage.From.Address;
                     Cc_Read_Textbox.Text = selectedMailMessage.Cc.ToString();
                     SubjectRead_TextBox.Text = selectedMailMessage.Subject;
                     ContentRead_TextBox.Text = selectedMailMessage.Body;

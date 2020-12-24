@@ -88,6 +88,8 @@
             this.label7 = new System.Windows.Forms.Label();
             this.Smtp_Username_Textbox = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
+            this.FromTextbox = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.MailGroupbox.SuspendLayout();
             this.AttachmentGroupbox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridReadMail)).BeginInit();
@@ -114,7 +116,7 @@
             // content_label
             // 
             this.content_label.AutoSize = true;
-            this.content_label.Location = new System.Drawing.Point(6, 155);
+            this.content_label.Location = new System.Drawing.Point(6, 175);
             this.content_label.Name = "content_label";
             this.content_label.Size = new System.Drawing.Size(47, 13);
             this.content_label.TabIndex = 4;
@@ -122,7 +124,7 @@
             // 
             // content_textbox
             // 
-            this.content_textbox.Location = new System.Drawing.Point(71, 155);
+            this.content_textbox.Location = new System.Drawing.Point(71, 175);
             this.content_textbox.Multiline = true;
             this.content_textbox.Name = "content_textbox";
             this.content_textbox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -131,7 +133,7 @@
             // 
             // sendMail_button
             // 
-            this.sendMail_button.Location = new System.Drawing.Point(393, 446);
+            this.sendMail_button.Location = new System.Drawing.Point(393, 470);
             this.sendMail_button.Name = "sendMail_button";
             this.sendMail_button.Size = new System.Drawing.Size(81, 29);
             this.sendMail_button.TabIndex = 6;
@@ -142,7 +144,7 @@
             // subject_label
             // 
             this.subject_label.AutoSize = true;
-            this.subject_label.Location = new System.Drawing.Point(6, 119);
+            this.subject_label.Location = new System.Drawing.Point(6, 139);
             this.subject_label.Name = "subject_label";
             this.subject_label.Size = new System.Drawing.Size(46, 13);
             this.subject_label.TabIndex = 7;
@@ -150,19 +152,21 @@
             // 
             // subject_textbox
             // 
-            this.subject_textbox.Location = new System.Drawing.Point(71, 119);
+            this.subject_textbox.Location = new System.Drawing.Point(71, 139);
             this.subject_textbox.Name = "subject_textbox";
             this.subject_textbox.Size = new System.Drawing.Size(282, 20);
             this.subject_textbox.TabIndex = 8;
             // 
             // MailGroupbox
             // 
+            this.MailGroupbox.Controls.Add(this.FromTextbox);
             this.MailGroupbox.Controls.Add(this.Receiver_Textbox);
             this.MailGroupbox.Controls.Add(this.Cc_Textbox);
             this.MailGroupbox.Controls.Add(this.Cc_Label);
             this.MailGroupbox.Controls.Add(this.Bcc_Textbox);
             this.MailGroupbox.Controls.Add(this.Bcc);
             this.MailGroupbox.Controls.Add(this.AttachmentGroupbox);
+            this.MailGroupbox.Controls.Add(this.label13);
             this.MailGroupbox.Controls.Add(this.receiver_label);
             this.MailGroupbox.Controls.Add(this.subject_label);
             this.MailGroupbox.Controls.Add(this.subject_textbox);
@@ -170,7 +174,7 @@
             this.MailGroupbox.Controls.Add(this.content_textbox);
             this.MailGroupbox.Location = new System.Drawing.Point(28, 131);
             this.MailGroupbox.Name = "MailGroupbox";
-            this.MailGroupbox.Size = new System.Drawing.Size(455, 315);
+            this.MailGroupbox.Size = new System.Drawing.Size(455, 333);
             this.MailGroupbox.TabIndex = 13;
             this.MailGroupbox.TabStop = false;
             this.MailGroupbox.Text = "Mail";
@@ -184,7 +188,7 @@
             // 
             // Cc_Textbox
             // 
-            this.Cc_Textbox.Location = new System.Drawing.Point(71, 51);
+            this.Cc_Textbox.Location = new System.Drawing.Point(71, 71);
             this.Cc_Textbox.Name = "Cc_Textbox";
             this.Cc_Textbox.Size = new System.Drawing.Size(282, 20);
             this.Cc_Textbox.TabIndex = 18;
@@ -192,7 +196,7 @@
             // Cc_Label
             // 
             this.Cc_Label.AutoSize = true;
-            this.Cc_Label.Location = new System.Drawing.Point(6, 54);
+            this.Cc_Label.Location = new System.Drawing.Point(6, 74);
             this.Cc_Label.Name = "Cc_Label";
             this.Cc_Label.Size = new System.Drawing.Size(20, 13);
             this.Cc_Label.TabIndex = 17;
@@ -200,7 +204,7 @@
             // 
             // Bcc_Textbox
             // 
-            this.Bcc_Textbox.Location = new System.Drawing.Point(71, 84);
+            this.Bcc_Textbox.Location = new System.Drawing.Point(71, 104);
             this.Bcc_Textbox.Name = "Bcc_Textbox";
             this.Bcc_Textbox.Size = new System.Drawing.Size(282, 20);
             this.Bcc_Textbox.TabIndex = 16;
@@ -208,7 +212,7 @@
             // Bcc
             // 
             this.Bcc.AutoSize = true;
-            this.Bcc.Location = new System.Drawing.Point(6, 84);
+            this.Bcc.Location = new System.Drawing.Point(6, 104);
             this.Bcc.Name = "Bcc";
             this.Bcc.Size = new System.Drawing.Size(26, 13);
             this.Bcc.TabIndex = 15;
@@ -219,7 +223,7 @@
             this.AttachmentGroupbox.Controls.Add(this.RemoveAttachmentButton);
             this.AttachmentGroupbox.Controls.Add(this.AttachmentsListbox);
             this.AttachmentGroupbox.Controls.Add(this.AddAttachmentButton);
-            this.AttachmentGroupbox.Location = new System.Drawing.Point(15, 222);
+            this.AttachmentGroupbox.Location = new System.Drawing.Point(15, 242);
             this.AttachmentGroupbox.Name = "AttachmentGroupbox";
             this.AttachmentGroupbox.Size = new System.Drawing.Size(431, 87);
             this.AttachmentGroupbox.TabIndex = 14;
@@ -306,7 +310,7 @@
             this.MailTabControl.Location = new System.Drawing.Point(2, 0);
             this.MailTabControl.Name = "MailTabControl";
             this.MailTabControl.SelectedIndex = 0;
-            this.MailTabControl.Size = new System.Drawing.Size(1057, 514);
+            this.MailTabControl.Size = new System.Drawing.Size(1057, 542);
             this.MailTabControl.TabIndex = 16;
             // 
             // SendMailTabPage
@@ -318,7 +322,7 @@
             this.SendMailTabPage.Location = new System.Drawing.Point(4, 22);
             this.SendMailTabPage.Name = "SendMailTabPage";
             this.SendMailTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.SendMailTabPage.Size = new System.Drawing.Size(1049, 488);
+            this.SendMailTabPage.Size = new System.Drawing.Size(1049, 516);
             this.SendMailTabPage.TabIndex = 0;
             this.SendMailTabPage.Text = "Send Mail";
             // 
@@ -682,11 +686,27 @@
             this.label12.TabIndex = 13;
             this.label12.Text = "UserName";
             // 
+            // FromTextbox
+            // 
+            this.FromTextbox.Location = new System.Drawing.Point(71, 45);
+            this.FromTextbox.Name = "FromTextbox";
+            this.FromTextbox.Size = new System.Drawing.Size(282, 20);
+            this.FromTextbox.TabIndex = 20;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(6, 48);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(33, 13);
+            this.label13.TabIndex = 1;
+            this.label13.Text = "From:";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1095, 513);
+            this.ClientSize = new System.Drawing.Size(1095, 544);
             this.Controls.Add(this.MailTabControl);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -775,6 +795,8 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox Smtp_Username_Textbox;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox FromTextbox;
+        private System.Windows.Forms.Label label13;
     }
 }
 

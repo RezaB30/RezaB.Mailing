@@ -112,12 +112,12 @@ namespace RezaB.Mailing.Client
                 Credentials = new NetworkCredential() { Password = Password, UserName = Username },
                 Port = HostPort,
                 Host = HostName,
-                EnableSsl = UseSSL
+                EnableSsl = UseSSL,
             })
             {
                 using (var message = new MailMessage())
                 {
-                    message.From = new MailAddress(Username);
+                    message.From = sendingMessage.From ?? new MailAddress(Username);
                     message.Subject = sendingMessage.Subject;
                     message.IsBodyHtml = sendingMessage.BodyType == MailBodyType.HTML ? true : false;
                     message.Body = sendingMessage.Body;
